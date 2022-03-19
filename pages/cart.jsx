@@ -1,7 +1,10 @@
 import styles from "../styles/Cart.module.css";
 import Image from "next/image";
+import { useDispatch, useSelector } from "react-redux";
 
-const Cart = () =>{
+const Cart = () => {
+  const dispatch = useDispatch()
+  const cart = useSelector(state => state.cart);
   return (
     <div className={styles.container}>
       <div className={styles.left}>
@@ -15,12 +18,12 @@ const Cart = () =>{
             <th>Total</th>
           </tr>
 
-          
-          <tr className={styles.tr}>
+          {cart.products.map((product) => (
+          <tr className={styles.tr} key={product._id}>
             <td>
               <div className={styles.imgContainer}>
                 <Image
-                src="/img/kala.png"
+                src={product.img}
                 layout="fill"
                 objectFit="fill"
                 alt=""
@@ -34,47 +37,21 @@ const Cart = () =>{
             </td>
             <td>
               <span className={styles.extras}>
-                Double ingredient, spicy sauce
+                {product.extras.map(extra =>(
+                  <span key={extra._id}>{extra.text}, </span>
+                ))}
+                
               </span>
             </td>
             <td>
-              <span className={styles.price}>kr85</span>
+              <span className={styles.price}>{product.price}kr</span>
             </td>
             <td>
-              <span className={styles.quantity}>2</span>
+              <span className={styles.quantity}>{product.quantity}</span>
             </td>
-            <td className={styles.total}>kr120</td>
+            <td className={styles.total}>{product.price * product.quantity}kr</td>
           </tr>
-
-          <tr className={styles.tr}>
-            <td>
-              <div className={styles.imgContainer}>
-                <Image
-                src="/img/kala.png"
-                layout="fill"
-                objectFit="fill"
-                // height="3000"
-                // width="3000"
-                alt=""
-                />
-              </div>
-            </td>
-            <td>
-              <span className={styles.name}>Kalankal</span>
-            </td>
-            <td>
-              <span className={styles.extras}>
-                Double ingredient, spicy sauce
-              </span>
-            </td>
-            <td>
-              <span className={styles.price}>85kr</span>
-            </td>
-            <td>
-              <span className={styles.quantity}>2</span>
-            </td>
-            <td className={styles.total}>120kr</td>
-          </tr>
+          ))}
           
         </table>
       </div>
@@ -82,13 +59,13 @@ const Cart = () =>{
         <div className={styles.wrapper}>
           <h2 className={styles.title}>Cart Total</h2>
           <div className={styles.totalText}>
-            <b className={styles.totalTextTitle}>Subtotal:</b>79.60kr
+            <b className={styles.totalTextTitle}>Subtotal:</b>{cart.total}kr
           </div>
           <div className={styles.totalText}>
             <b className={styles.totalTextTitle}>Discount:</b>0.00kr
           </div>
           <div className={styles.totalText}>
-            <b className={styles.totalTextTitle}>Total:</b>79.60kr
+          <b className={styles.totalTextTitle}>Total:</b>{cart.total}kr
           </div>
           <button className={styles.button}>CHECKOUT NOW!</button>
         </div>
