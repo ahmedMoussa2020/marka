@@ -38,7 +38,7 @@
   max-height: 300px;
   background-color: #333;
   padding: 50px;
-  padding-top: 10px;
+  padding-top: 5px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -113,4 +113,19 @@
   .wrapper{
     width: 100%;
   }
+}
+
+.paymentMethods{
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.payButton {
+  padding: 15px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  background-color: white;
+  color: rgb(49, 201, 49);
+  font-weight: bold;
 }
